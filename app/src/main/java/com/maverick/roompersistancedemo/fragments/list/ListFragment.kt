@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.maverick.roompersistancedemo.R
 import com.maverick.roompersistancedemo.adaptor.UserAdapter
-import com.maverick.roompersistancedemo.data.User
+import com.maverick.roompersistancedemo.data.model.User
 import com.maverick.roompersistancedemo.databinding.FragmentListBinding
 import com.maverick.roompersistancedemo.viewmodel.UserViewModel
 
@@ -39,6 +39,8 @@ class ListFragment : Fragment() {
         userAdapter.setEventListener(object : UserAdapter.EventListener {
             override fun onItemClick(position: Int, item: User) {
                 Toast.makeText(requireContext(), "${item.firstName} ${item.lastName}", Toast.LENGTH_SHORT).show()
+                val action = ListFragmentDirections.actionListFragmentToUpdateFragment(item)
+                findNavController().navigate(action)
             }
 
         })

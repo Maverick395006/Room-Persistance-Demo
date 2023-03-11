@@ -1,11 +1,9 @@
 package com.maverick.roompersistancedemo.adaptor
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.maverick.roompersistancedemo.data.User
+import com.maverick.roompersistancedemo.data.model.User
 import com.maverick.roompersistancedemo.databinding.ItemUserBinding
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {

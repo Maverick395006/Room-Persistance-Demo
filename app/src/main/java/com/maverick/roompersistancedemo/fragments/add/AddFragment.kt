@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.maverick.roompersistancedemo.R
-import com.maverick.roompersistancedemo.data.User
+import com.maverick.roompersistancedemo.data.model.User
 import com.maverick.roompersistancedemo.databinding.FragmentAddBinding
 import com.maverick.roompersistancedemo.viewmodel.UserViewModel
 
