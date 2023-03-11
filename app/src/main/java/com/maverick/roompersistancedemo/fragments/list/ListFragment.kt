@@ -1,9 +1,8 @@
 package com.maverick.roompersistancedemo.fragments.list
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -49,7 +48,35 @@ class ListFragment : Fragment() {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
 
+        setHasOptionsMenu(true)
+
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_delete) {
+            deleteAllUser()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteAllUser() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+            viewModel.deleteAllUser()
+            Toast.makeText(
+                requireContext(),
+                "Successfully deleted All Users.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }.setNegativeButton("No") { _, _ -> }
+        builder.setTitle("Delete All Users?")
+        builder.setMessage("Are you sure you want to delete All Users?")
+        builder.create().show()
     }
 
     override fun onDestroyView() {
