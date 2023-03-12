@@ -3,6 +3,7 @@ package com.maverick.roompersistancedemo.repository
 import androidx.lifecycle.LiveData
 import com.maverick.roompersistancedemo.data.model.User
 import com.maverick.roompersistancedemo.data.db.UserDao
+import kotlinx.coroutines.flow.Flow
 
 class UserRepository(private val userDao: UserDao) {
 
@@ -22,6 +23,10 @@ class UserRepository(private val userDao: UserDao) {
 
     suspend fun deleteAllUser() {
         userDao.deleteAllUser()
+    }
+
+    fun searchInDatabase(searchQuery: String): Flow<List<User>> {
+        return userDao.searchInDatabase(searchQuery)
     }
 
 }

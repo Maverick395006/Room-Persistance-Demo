@@ -1,8 +1,10 @@
 package com.maverick.roompersistancedemo.data.db
 
+import android.app.Person
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.maverick.roompersistancedemo.data.model.User
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
@@ -21,5 +23,8 @@ interface UserDao {
 
     @Query("SELECT * FROM user_table ORDER BY id ASC")
     fun readAllData(): LiveData<List<User>>
+
+    @Query("SELECT * FROM user_table WHERE firstName LIKE :searchQuery OR lastName LIKE :searchQuery")
+    fun searchInDatabase(searchQuery: String): Flow<List<User>>
 
 }

@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -19,7 +20,7 @@ import com.maverick.roompersistancedemo.data.model.User
 import com.maverick.roompersistancedemo.databinding.FragmentListBinding
 import com.maverick.roompersistancedemo.viewmodel.UserViewModel
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
@@ -64,11 +65,42 @@ class ListFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.delete_menu, menu)
+
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search?.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) {
+            searchInDatabase(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if (newText != null) {
+            searchInDatabase(newText)
+        }
+        return true
+    }
+
+    private fun searchInDatabase(query: String) {
+        val searchQuery = "%$query%"
+        viewModel.searchInDatabase(searchQuery).observe(this) {list->
+            list.let {
+                userAdapter.addAllUsers(it)
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_delete) {
             deleteAllUser()
+        }
+        if (item.itemId == R.id.menu_search) {
+
         }
         return super.onOptionsItemSelected(item)
     }

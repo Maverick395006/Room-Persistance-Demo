@@ -3,6 +3,7 @@ package com.maverick.roompersistancedemo.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.maverick.roompersistancedemo.data.model.User
 import com.maverick.roompersistancedemo.data.db.UserDatabase
@@ -43,6 +44,10 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             userRepository.deleteAllUser()
         }
+    }
+
+    fun searchInDatabase(searchQuery: String): LiveData<List<User>> {
+        return userRepository.searchInDatabase(searchQuery).asLiveData()
     }
 
 }
