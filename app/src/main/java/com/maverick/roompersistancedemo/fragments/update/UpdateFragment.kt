@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.maverick.roompersistancedemo.R
+import com.maverick.roompersistancedemo.data.model.Address
 import com.maverick.roompersistancedemo.data.model.User
 import com.maverick.roompersistancedemo.databinding.FragmentUpdateBinding
 import com.maverick.roompersistancedemo.viewmodel.UserViewModel
@@ -53,7 +54,8 @@ class UpdateFragment : Fragment() {
         val age = Integer.parseInt(binding.etUpdateAge.text.toString())
 
         if (inputCheck(firstName, lastName, binding.etUpdateAge.text)) {
-            val updateUser = User(args.currentUser.id, firstName, lastName, age)
+            val address = Address(0, "No Location")
+            val updateUser = User(args.currentUser.id, firstName, lastName, age, address)
             viewModel.updateUser(updateUser)
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)

@@ -38,6 +38,10 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                 tvUserFirstName.text = currentItem.firstName
                 tvUserLastName.text = currentItem.lastName
                 tvUserAge.text = currentItem.age.toString()
+
+                tvStreetNumber.text = currentItem.address.streetNumber.toString()
+                tvStreetName.text = currentItem.address.streetName
+
                 root.setOnClickListener {
                     mEventListener.onItemClick(position, currentItem)
                 }

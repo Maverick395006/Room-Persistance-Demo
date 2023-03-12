@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.maverick.roompersistancedemo.R
+import com.maverick.roompersistancedemo.data.model.Address
 import com.maverick.roompersistancedemo.data.model.User
 import com.maverick.roompersistancedemo.databinding.FragmentAddBinding
 import com.maverick.roompersistancedemo.viewmodel.UserViewModel
@@ -44,7 +45,8 @@ class AddFragment : Fragment() {
         val age = binding.etAge.text
 
         if (inputCheck(firstName, lastName, age)) {
-            val user = User(0, firstName, lastName, Integer.parseInt(age.toString()))
+            val address = Address(0, "No Location")
+            val user = User(0, firstName, lastName, Integer.parseInt(age.toString()),address)
             viewModel.addUser(user)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)

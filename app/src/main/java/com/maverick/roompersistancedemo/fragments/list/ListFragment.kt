@@ -19,7 +19,7 @@ class ListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: UserViewModel
-    private lateinit var userAdapter: UserAdapter
+    private val userAdapter by lazy { UserAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +29,6 @@ class ListFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
-        userAdapter = UserAdapter()
         binding.rvUserList.adapter = userAdapter
 
         viewModel.readAllData.observe(viewLifecycleOwner) {
@@ -37,7 +36,11 @@ class ListFragment : Fragment() {
         }
         userAdapter.setEventListener(object : UserAdapter.EventListener {
             override fun onItemClick(position: Int, item: User) {
-                Toast.makeText(requireContext(), "${item.firstName} ${item.lastName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "${item.firstName} ${item.lastName}",
+                    Toast.LENGTH_SHORT
+                ).show()
                 val action = ListFragmentDirections.actionListFragmentToUpdateFragment(item)
                 findNavController().navigate(action)
             }
