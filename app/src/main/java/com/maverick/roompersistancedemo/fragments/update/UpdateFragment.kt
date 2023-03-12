@@ -8,13 +8,16 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.maverick.roompersistancedemo.R
 import com.maverick.roompersistancedemo.data.model.Address
 import com.maverick.roompersistancedemo.data.model.User
 import com.maverick.roompersistancedemo.databinding.FragmentUpdateBinding
+import com.maverick.roompersistancedemo.fragments.list.ListFragment.Companion.getBitmap
 import com.maverick.roompersistancedemo.viewmodel.UserViewModel
+import kotlinx.coroutines.launch
 
 class UpdateFragment : Fragment() {
 
@@ -40,7 +43,9 @@ class UpdateFragment : Fragment() {
         }
 
         binding.btnUpdate.setOnClickListener {
-            updateItem()
+            lifecycleScope.launch {
+                updateItem()
+            }
         }
 
         setHasOptionsMenu(true)
@@ -48,14 +53,14 @@ class UpdateFragment : Fragment() {
         return binding.root
     }
 
-    private fun updateItem() {
+    private suspend fun updateItem() {
         val firstName = binding.etUpdateFirstName.text.toString()
         val lastName = binding.etUpdateLastName.text.toString()
         val age = Integer.parseInt(binding.etUpdateAge.text.toString())
 
         if (inputCheck(firstName, lastName, binding.etUpdateAge.text)) {
             val address = Address(0, "No Location")
-            val updateUser = User(args.currentUser.id, firstName, lastName, age, address)
+            val updateUser = User(args.currentUser.id, firstName, lastName, age, address,getBitmap(requireContext()))
             viewModel.updateUser(updateUser)
             Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)

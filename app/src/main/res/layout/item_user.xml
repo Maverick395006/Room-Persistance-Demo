@@ -5,9 +5,12 @@
     android:id="@+id/rowLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="4dp"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="8dp">
+    android:layout_margin="16dp"
+    android:outlineAmbientShadowColor="#00423B"
+    android:outlineSpotShadowColor="@color/teal_700"
+    app:cardBackgroundColor="#DBFFDD"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -85,6 +88,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvStreetNumber"
             app:layout_constraintTop_toBottomOf="@id/tvUserFirstName" />
+
+        <ImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

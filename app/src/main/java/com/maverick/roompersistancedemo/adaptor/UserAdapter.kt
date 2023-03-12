@@ -3,6 +3,7 @@ package com.maverick.roompersistancedemo.adaptor
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.maverick.roompersistancedemo.data.model.User
 import com.maverick.roompersistancedemo.databinding.ItemUserBinding
 
@@ -41,6 +42,8 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
                 tvStreetNumber.text = currentItem.address.streetNumber.toString()
                 tvStreetName.text = currentItem.address.streetName
+
+                ivProfile.load(currentItem.photo)
 
                 root.setOnClickListener {
                     mEventListener.onItemClick(position, currentItem)
